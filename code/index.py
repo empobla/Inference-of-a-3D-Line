@@ -214,13 +214,13 @@ if __name__ == "__main__":
     qi_MAP = 1/uvw_qi_MAP[2] * numpy.array([uvw_qi_MAP[0], uvw_qi_MAP[1]])
     qf_MAP = 1/uvw_qf_MAP[2] * numpy.array([uvw_qf_MAP[0], uvw_qf_MAP[1]])
 
-    # plt.figure()
-    # plt.plot(qi_MAP, qf_MAP, 'bo-', label='True line')
-    # plt.plot([ points2d[i][0] for i in range(len(points2d)) ], [ points2d[i][1] for i in range(len(points2d)) ], 'ro', label='Original Noisy Observations')
-    # plt.xlabel('$v$')
-    # plt.ylabel('$u$')
-    # plt.legend(loc="upper left")
-    # plt.title('MAP Estimate Camera 1')
-    # filename_base = 'map_cam1'
-    # plt.savefig(f'../figures/{filename_base}.png', format='png')
-    # plt.show()
+    plt.figure()
+    plt.plot(qi_MAP, qf_MAP, 'bo-', label='True line')
+    plt.plot([ points2d[i][0] for i in range(len(points2d)) ], [ points2d[i][1] for i in range(len(points2d)) ], 'ro', label='Original Noisy Observations')
+    plt.xlabel('$v$')
+    plt.ylabel('$u$')
+    plt.legend(loc="upper left")
+    plt.title('MAP Estimate Camera 1')
+    filename_base = 'map_cam1'
+    plt.savefig(f'../figures/{filename_base}.png', format='png')
+    plt.show()
