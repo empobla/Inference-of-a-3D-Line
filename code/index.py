@@ -206,6 +206,9 @@ if __name__ == "__main__":
         normalized_pi_MAP[i] = pi_MAP[i]
         normalized_pf_MAP[i] = pf_MAP[i]
 
+    normalized_pi_MAP[3] = 1
+    normalized_pf_MAP[3] = 1
+
     # Follow generative process to find u*, v*, w*
     uvw_qi_MAP = numpy.dot(CAMERA_1, normalized_pi_MAP)
     uvw_qf_MAP = numpy.dot(CAMERA_1, normalized_pf_MAP)
