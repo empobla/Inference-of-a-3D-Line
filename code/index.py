@@ -27,6 +27,10 @@ def calcLogLikelihood(M, rs, pi, pf, cov, ts):
     for i in range(len(pi)):
         normalized_pi[i] = pi[i]
         normalized_pf[i] = pf[i]
+    
+    # Add the normalizaiton param
+    normalized_pi[3] = 1
+    normalized_pf[3] = 1
 
     # Follow generative process to find u*, v*, w*
     uvw_qi = numpy.dot(M, normalized_pi)
@@ -83,6 +87,7 @@ if __name__ == "__main__":
     gaussian_cov = 0.05**2 * numpy.identity(2)
 
     N = 50 * 1000   # 50,000 samples
+    # N = 100
 
     # Accepted proposals
     accepted_proposals_pi = []
@@ -205,17 +210,17 @@ if __name__ == "__main__":
     uvw_qi_MAP = numpy.dot(CAMERA_1, normalized_pi_MAP)
     uvw_qf_MAP = numpy.dot(CAMERA_1, normalized_pf_MAP)
 
-    # Find qi, qf from u*, v*, w*
+    # Find qi, qf in Camera 1's perspective from u*, v*, w*
     qi_MAP = 1/uvw_qi_MAP[2] * numpy.array([uvw_qi_MAP[0], uvw_qi_MAP[1]])
     qf_MAP = 1/uvw_qf_MAP[2] * numpy.array([uvw_qf_MAP[0], uvw_qf_MAP[1]])
 
-    plt.figure()
-    plt.plot(qi_MAP, qf_MAP, 'bo-', label='True line')
-    plt.plot([ points2d[i][0] for i in range(len(points2d)) ], [ points2d[i][1] for i in range(len(points2d)) ], 'ro', label='Original Noisy Observations')
-    plt.xlabel('$v$')
-    plt.ylabel('$u$')
-    plt.legend(loc="upper left")
-    plt.title('MAP Estimate Camera 1')
-    filename_base = 'map_cam1'
-    plt.savefig(f'../figures/{filename_base}.png', format='png')
-    plt.show()
+    # plt.figure()
+    # plt.plot(qi_MAP, qf_MAP, 'bo-', label='True line')
+    # plt.plot([ points2d[i][0] for i in range(len(points2d)) ], [ points2d[i][1] for i in range(len(points2d)) ], 'ro', label='Original Noisy Observations')
+    # plt.xlabel('$v$')
+    # plt.ylabel('$u$')
+    # plt.legend(loc="upper left")
+    # plt.title('MAP Estimate Camera 1')
+    # filename_base = 'map_cam1'
+    # plt.savefig(f'../figures/{filename_base}.png', format='png')
+    # plt.show()
