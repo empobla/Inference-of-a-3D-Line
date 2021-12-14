@@ -82,8 +82,7 @@ if __name__ == "__main__":
     # Covariance for gaussian noise
     gaussian_cov = 0.05**2 * numpy.identity(2)
 
-    # N = 50 * 1000   # 50,000 samples
-    N = 100
+    N = 50 * 1000   # 50,000 samples
 
     # Accepted proposals
     accepted_proposals_pi = []
@@ -192,5 +191,31 @@ if __name__ == "__main__":
     # -----------------------------------------------------------------------------
     # TASK 3
     # -----------------------------------------------------------------------------
-    # print(numpy.mean(accepted_proposals_pi))
-    # print(numpy.mean(accepted_proposals_pf))
+    pi_MAP = numpy.array([numpy.mean(accepted_x_pi), numpy.mean(accepted_y_pi), numpy.mean(accepted_z_pi)])
+    pf_MAP = numpy.array([numpy.mean(accepted_x_pf), numpy.mean(accepted_y_pf), numpy.mean(accepted_z_pf)])
+
+    # Create normalized pi and pf vectors for matrix multiplication
+    normalized_pi_MAP = numpy.zeros(4)
+    normalized_pf_MAP = numpy.zeros(4)
+    for i in range(len(pi_MAP)):
+        normalized_pi_MAP[i] = pi_MAP[i]
+        normalized_pf_MAP[i] = pf_MAP[i]
+
+    # Follow generative process to find u*, v*, w*
+    uvw_qi_MAP = numpy.dot(CAMERA_1, normalized_pi_MAP)
+    uvw_qf_MAP = numpy.dot(CAMERA_1, normalized_pf_MAP)
+
+    # Find qi, qf from u*, v*, w*
+    qi_MAP = 1/uvw_qi_MAP[2] * numpy.array([uvw_qi_MAP[0], uvw_qi_MAP[1]])
+    qf_MAP = 1/uvw_qf_MAP[2] * numpy.array([uvw_qf_MAP[0], uvw_qf_MAP[1]])
+
+    plt.figure()
+    plt.plot(qi_MAP, qf_MAP, 'bo-', label='True line')
+    plt.plot([ points2d[i][0] for i in range(len(points2d)) ], [ points2d[i][1] for i in range(len(points2d)) ], 'ro', label='Original Noisy Observations')
+    plt.xlabel('$v$')
+    plt.ylabel('$u$')
+    plt.legend(loc="upper left")
+    plt.title('MAP Estimate Camera 1')
+    filename_base = 'map_cam1'
+    plt.savefig(f'../figures/{filename_base}.png', format='png')
+    plt.show()
