@@ -280,19 +280,10 @@ In your written answers for this task, including the following:
 \end{itemize}
 
 \textbf{Solution:}
-\begin{figure}
-    \centering
-    \includegraphics{figures/accepted_pi.png}
-    \caption{Accepted P_i}
-    \label{fig:my_label}
-\end{figure}
-\begin{figure}
-    \centering
-    \includegraphics{figures/accepted_pf.png}
-    \caption{Accepted P_f}
-    \label{fig:my_label}
-\end{figure}
-What I see in these plots (page 5 and 6) is that $p_i$ is converging on about $[1, -2, 6]$ as more samples are taken, and that $p_f$ is converging on about $[-2, 2, y]$ as more samples are taken. The differences between these plots and the one in FCML is that this plot accounts for each axis, and FCML's plot was just performing MH on one number.
+
+\includegraphics{figures/accepted_pi.png}
+\includegraphics{figures/accepted_pf.png}
+What I see in these plots is that $p_i$ is converging on about $[1, -1, 6]$ as more samples are taken, and that $p_f$ is converging on about $[-2, 2, 7]$ as more samples are taken. The differences between these plots and the one in FCML is that this plot accounts for each axis, and FCML's plot was just performing MH on one number.
 
 
 \item {\bf [2 points]} \label{task-c} Using the samples you generated, find the maximum a posteriori (MAP) estimate of the line end-points.
@@ -302,18 +293,12 @@ Report your results, including:
 
 
 \item Plot the MAP estimate of the line (that is, the MAP for each endpoint with a line connecting them) as projected onto the camera image plane (using the camera matrix).  Include in the plot the original noisy observations, $\mathbf{r}$, of points sampled along the true line.  You should see that your inferred line fits fairly well among the points.  If not, try running your M-H procedure again with a different starting point for your line end-point hypothesis (it is generally a good idea to sample your starting end-points from the prior; update your plots in task~\ref{task-b} if you re-run, so that what you report there corresponds to the same data that you report here).
-\textbf{Solution:}
-Solution is in page 7.
-
-\begin{figure}
-    \centering
-    \includegraphics{figures/map_cam1.png}
-    \caption{MAP for Camera 1}
-    \label{fig:my_label}
-\end{figure}
-
 
 \end{itemize}
+
+\textbf{Solution:}
+
+\includegraphics{figures/map_cam1.png}
 
 \item \label{task-e} {\bf [2 points]} Suppose we have a second camera
 \begin{eqnarray*}
@@ -332,6 +317,10 @@ and, consequently, a second set of observed data points $\mathbf{r}^{\prime}_1, 
 
 \end{itemize}
 
+\textbf{Solution:}
+
+\includegraphics{figures/map_cam2.png}
+
 \item {\bf [10 points]} \label{task-f} Now, perform M-H sampling again, but this time use the data from {\bf both} cameras.  You will need to adapt your likelihood to now consider the two camera data sources, but the rest of M-H stays the same!  Use the same observation noise parameterization (a diagonal matrix with $(0.05)^2$ down the diagonal), although note that now that you are combining the observations from both cameras, the dimension of the likelihood function is not the same as with a single camera!  Again, $50,000$ iterations in M-H should be sufficient to converge and to see longer-term the trend.
 Report the following:
 \begin{itemize}
@@ -345,6 +334,18 @@ Report the following:
 
 
 \end{itemize}
+
+\textbf{Solution:}
+
+\includegraphics{figures/accepted_pi_both_cams.png}
+\includegraphics{figures/accepted_pf_both_cams.png}
+
+The plots that i made in task~\ref{task-b} do not look qualitatively the same as the ones I made in this task because, in this task, we can see that all axis coordinates for the points converge much faster (in less samples) and much better around a certain point than the axes in task~\ref{task-b}. I believe that this is because we now have more information (data) on the line we're trying to find, and we have it from a different perspective. This means that the predictions will be more accurate and convergence around a point will be faster.
+
+\includegraphics{figures/map_cam1_both_cams.png}
+\includegraphics{figures/map_cam2_both_cams.png}
+
+In the case of the MAP estimate, the first plot (for camera 1) looks qualitatively the same as before, but not the second plot (for camera 2). In this case, the points in this camera's projection fit much better as we are now accounting for camera 2's data. In both plots, in general the noise points fit the MAP created pretty well.
 
 \end{enumerate}
 
