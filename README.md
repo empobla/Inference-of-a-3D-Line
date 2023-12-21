@@ -180,7 +180,7 @@ Once this is done, the script will show you new plots with the approximated 3D l
 <!-- LICENSE -->
 ## License
 
-This project is property of Emilio Popovits Blake. All rights are reserved. Modification or redistribution of this code must have _explicit_ consent from the owner.
+All rights are reserved. Modification or redistribution of this code must have _explicit_ consent from the owner.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
